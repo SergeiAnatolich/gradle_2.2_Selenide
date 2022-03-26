@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/vyovx28084i45m05?svg=true)](https://ci.appveyor.com/project/SergeiAnatolich/gradle-2-2-selenide)
