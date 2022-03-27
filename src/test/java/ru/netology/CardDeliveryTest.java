@@ -251,4 +251,29 @@ public class CardDeliveryTest {
         String expected = "Доставка в выбранный город недоступна";
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void selectionCityFromTheList(){
+        $("[data-test-id=city] input").val("Мо");
+        $(withText("Москва")).click();
+        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
+        $("[data-test-id=date] input").val(dataDelivery());
+        $("[data-test-id=name] input").val("Пушкин Алекандр");
+        $("[data-test-id=phone] input").val("+79876543210");
+        $("[data-test-id=agreement]").click();
+        $(withText("Забронировать")).click();
+        $("[data-test-id=notification] .notification__title").should(appear, Duration.ofSeconds(15));
+    }
+
+//    @Test
+//    public void selectionDateFormCalendar(){
+//        $("[data-test-id=city] input").val("Москва");
+//        $("[data-test-id=date] button").click();
+//
+//        $("[data-test-id=name] input").val("Пушкин Алекандр");
+//        $("[data-test-id=phone] input").val("+79876543210");
+//        $("[data-test-id=agreement]").click();
+//        $(withText("Забронировать")).click();
+//        $("[data-test-id=notification] .notification__title").should(appear, Duration.ofSeconds(15));
+//    }
 }
