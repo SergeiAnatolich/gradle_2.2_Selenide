@@ -13,6 +13,7 @@ import java.time.Duration;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 
 public class CardDeliveryTest {
@@ -259,6 +260,28 @@ public class CardDeliveryTest {
         $(withText("Москва")).click();
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
         $("[data-test-id=date] input").val(dataDelivery());
+        $("[data-test-id=name] input").val("Пушкин Алекандр");
+        $("[data-test-id=phone] input").val("+79876543210");
+        $("[data-test-id=agreement]").click();
+        $(withText("Забронировать")).click();
+        $("[data-test-id=notification] .notification__title").should(appear, Duration.ofSeconds(15));
+    }
+
+    @Test
+    public void selectionDateFromCalendar(){
+        $("[data-test-id=city] input").val("Москва");
+        $("[data-test-id=date] button").click();
+        Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.DAY_OF_YEAR, 7);
+        SimpleDateFormat dayFormat = new SimpleDateFormat("d");
+        String dayDelivery = dayFormat.format(calendar.getTime());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
+        String monthDelivery = monthFormat.format(calendar.getTime());
+        String actualMonth = $(".calendar__name").getText();
+        if (!actualMonth.toLowerCase(Locale.ROOT).contains(monthDelivery)) {
+            $$(".calendar__arrow_direction_right").last().click();
+        }
+        $x("//*[text()='"+ dayDelivery + "']").click();
         $("[data-test-id=name] input").val("Пушкин Алекандр");
         $("[data-test-id=phone] input").val("+79876543210");
         $("[data-test-id=agreement]").click();
