@@ -206,6 +206,7 @@ public class CardDeliveryTest {
     @Test
     public void allFieldsNullCheckboxChecked(){
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.DELETE);
+        $("[data-test-id=city] input").click();
         $("[data-test-id=agreement]").click();
         $(withText("Забронировать")).click();
         String actual =  $("[data-test-id=city].input_invalid .input__sub").getText();
@@ -264,16 +265,4 @@ public class CardDeliveryTest {
         $(withText("Забронировать")).click();
         $("[data-test-id=notification] .notification__title").should(appear, Duration.ofSeconds(15));
     }
-
-//    @Test
-//    public void selectionDateFormCalendar(){
-//        $("[data-test-id=city] input").val("Москва");
-//        $("[data-test-id=date] button").click();
-//
-//        $("[data-test-id=name] input").val("Пушкин Алекандр");
-//        $("[data-test-id=phone] input").val("+79876543210");
-//        $("[data-test-id=agreement]").click();
-//        $(withText("Забронировать")).click();
-//        $("[data-test-id=notification] .notification__title").should(appear, Duration.ofSeconds(15));
-//    }
 }
